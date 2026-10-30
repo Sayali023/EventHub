@@ -363,10 +363,14 @@ app.get("/api/events/:id/registrations", async (req, res) => {
 // 12. START SERVER
 // ===============================
 
+
 const PORT = process.env.PORT || 5000;
-const MONGO_URI =
-  process.env.MONGO_URI ||
-  "mongodb://127.0.0.1:27017/campus_events";
+const MONGO_URI = process.env.MONGODB_URI;
+
+if (!MONGO_URI) {
+  console.error("MONGODB_URI environment variable is missing");
+  process.exit(1);
+}
 
 mongoose
   .connect(MONGO_URI)
@@ -374,9 +378,10 @@ mongoose
     console.log("MongoDB connected successfully");
 
     app.listen(PORT, () => {
-      console.log(`Server running at http://localhost:${PORT}`);
+      console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((error) => {
     console.error("MongoDB connection failed:", error.message);
+    process.exit(1);
   });
