@@ -3,7 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-const API = "http://localhost:5000/api";
+
+const API = "https://eventhub-4a5u.onrender.com/api";
+
 
 const departments = [
   "Computer Science",
